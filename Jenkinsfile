@@ -23,20 +23,23 @@ pipeline {
         
         script {
 
-          // Add steps here
-			openshift.withCluster() 
-			{
-		 	 openshift.withProject("test") 
-			{
+          // Add steps here https://github.com/sougata2000/codelikethewind.git
+			//openshift.withCluster() 
+			//{
+		 	// openshift.withProject("test") 
+			//{
 			
-				def buildConfigExists = openshift.selector("bc", "example").exists()
-				if(!buildConfigExists) 
-				{
-		 		 openshift.newBuild("--name=example", "--docker-image=registry.redhat.io/jboss-eap-7/eap74-openjdk-openshift-rhel7", "--binary")
-				}
-				openshift.selector("bc","example").startBuild("--from-file=target/simple-servlet-0.0.1-SNAPSHOT.war","--follow")
-			}
-
+			//	def buildConfigExists = openshift.selector("bc", "example").exists()
+			//	if(!buildConfigExists) 
+			//	{
+		 	//	 openshift.newBuild("--name=example", "--docker-image=registry.redhat.io/jboss-eap-7/eap74-openjdk-openshift-rhel7", "--binary")
+			//	}
+			//	openshift.selector("bc","example").startBuild("--from-file=target/simple-servlet-0.0.1-SNAPSHOT.war","--follow")
+			//}
+		sh 'oc import-image --from=registry.access.redhat.com/redhat-openjdk-18/openjdk-openshift s2i-java --confirm'
+		sh 'oc new-app s2i-java~https://github.com/sougata2000/codelikethewind.git:openshift-jenkins-pipeline --test2'
+		sh 'oc expose svc/test2'
+		
 		     }
         	}
       	     }
