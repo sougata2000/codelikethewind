@@ -23,7 +23,7 @@ pipeline {
         
         script {
 
-          // Add steps here https://github.com/sougata2000/codelikethewind.git
+          // Add steps here https://github.com/sougata2000/codelikethewind.git:openshift-jenkins-pipeline
 			//openshift.withCluster() 
 			//{
 		 	// openshift.withProject("test") 
@@ -36,8 +36,8 @@ pipeline {
 			//	}
 			//	openshift.selector("bc","example").startBuild("--from-file=target/simple-servlet-0.0.1-SNAPSHOT.war","--follow")
 			//}
-		sh 'oc import-image --from=registry.access.redhat.com/redhat-openjdk-18/openjdk-openshift s2i-java --confirm'
-		sh 'oc new-app s2i-java~https://github.com/sougata2000/codelikethewind.git:openshift-jenkins-pipeline --test2'
+		sh 'oc import-image --from=registry.redhat.io/jboss-eap-7/eap74-openjdk-openshift-rhel7 s2i-java --confirm'
+		sh 'oc new-app s2i-java~https://github.com/sougata2000/codelikethewind.git --test2'
 		sh 'oc expose svc/test2'
 		
 		     //}
