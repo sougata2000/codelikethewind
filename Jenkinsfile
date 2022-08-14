@@ -40,9 +40,9 @@ pipeline {
 		sh 'oc new-app s2i-java~https://github.com/sougata2000/codelikethewind.git:openshift-jenkins-pipeline --test2'
 		sh 'oc expose svc/test2'
 		
-		     }
+		     //}
         	}
-      	     }
+      	    }
    	}	  
 	  
     }
